@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Undangan Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .overlay-content { padding: 60px 20px; width: 100%; display: flex; flex-direction: column; align-items: center; min-height: calc(100vh - 120px); }
+        
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: #ffffff;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.15); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+        .card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.25); }
+
+        .card-image { width: 100%; height: 180px; object-fit: cover; }
+
+        .card-content { padding: 20px; text-align: center; }
+
+        .card-title { color: #ffffff; font-size: 1.1rem; font-weight: 600; margin-bottom: 20px; }
+
+        .btn-group { display: flex; flex-direction: column; gap: 10px; }
+
+        .btn {
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .btn-preview { background: rgba(255, 255, 255, 0.2); color: white; border: 1px solid white; }
+        .btn-preview:hover { background: white; color: #333; }
+
+        .btn-order { background: #25d366; color: white; }
+        .btn-order:hover { background: #128c7e; }
+
+        /* Footer Style */
+        footer {
+            width: 100%;
+            padding: 30px 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            text-align: center;
+            color: #ffffff;
+            margin-top: auto;
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+
+        .footer-brand {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay-content">
+        <h1>Katalog Undangan Digital</h1>
+        <div class="card-container" id="list-undangan"></div>
+    </div>
+
+    <footer>
+        <div class="footer-text">
+            <span class="footer-brand">HFZ COMPANY DIGITAL</span>
+            © 2026 ALL COPYRIGHTS RESERVED
+        </div>
+    </footer>
+
+    <script>
+        const dataUndangan = [
+            { 
+                nama: "Luxurios Javanese", 
+                img: "https://i.ibb.co.com/PzWHdx9K/Whats-App-Image-2026-03-30-at-20-35-51-2.jpg", 
+                linkPreview: "https://our-wedding.link/preset&design?preset_id=690aefa0334b8d45ecd81e85" 
+            },
+            { 
+                nama: "Template Rustic 2", 
+                img: "https://via.placeholder.com/400x300?text=Gambar+2", 
+                linkPreview: "https://link-preview-2.com" 
+            },
+            { 
+                nama: "Template Modern 3", 
+                img: "https://via.placeholder.com/400x300?text=Gambar+3", 
+                linkPreview: "https://link-preview-3.com" 
+            },
+            { 
+                nama: "Template Royal 4", 
+                img: "https://via.placeholder.com/400x300?text=Gambar+4", 
+                linkPreview: "https://link-preview-4.com" 
+            },
+            { 
+                nama: "Template Minimalis 5", 
+                img: "https://via.placeholder.com/400x300?text=Gambar+5", 
+                linkPreview: "https://link-preview-5.com" 
+            },
+            { 
+                nama: "Template Vintage 6", 
+                img: "https://via.placeholder.com/400x300?text=Gambar+6", 
+                linkPreview: "https://link-preview-6.com" 
+            },
+            { 
+                nama: "Template Luxury 7", 
+                img: "https://via.placeholder.com/400x300?text=Gambar+7", 
+                linkPreview: "https://link-preview-7.com" 
+            }
+        ];
+
+        const waNomor = "6285369082889";
+        const container = document.getElementById('list-undangan');
+
+        dataUndangan.forEach((item, i) => {
+            const pesan = encodeURIComponent(`Halo Kak, saya ingin memesan undangan desain: ${item.nama}`);
+            
+            const cardElement = document.createElement('div');
+            cardElement.className = 'card';
+            cardElement.style.animationDelay = `${i * 0.15}s`;
+
+            cardElement.innerHTML = `
+                <img src="${item.img}" class="card-image">
+                <div class="card-content">
+                    <div class="card-title">${item.nama}</div>
+                    <div class="btn-group">
+                        <a href="${item.linkPreview}" target="_blank" class="btn btn-preview">Preview Template</a>
+                        <a href="https://wa.me/${waNomor}?text=${pesan}" target="_blank" class="btn btn-order">Pesan Sekarang</a>
+                    </div>
+                </div>
+            `;
+            container.appendChild(cardElement);
+        });
+    </script>
+</body>
+</html>
